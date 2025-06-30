@@ -1,0 +1,42 @@
+import json
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# Load your notice data
+with open("ppu_notices_june_2025_part1.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# Initialize the embedding model
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# Prepare lists
+corpus = []
+id_map = {}
+
+# Fill the corpus and index map
+for i, item in enumerate(data):
+    for trigger in item["query_triggers"]:
+        corpus.append(trigger)
+        id_map[len(id_map)] = {
+            "english": item["content"]["english"],
+            "hinglish": item["content"]["hinglish"],
+            "source": trigger
+        }
+
+# Convert text to embeddings
+embeddings = model.encode(corpus)
+
+# Convert to numpy array of float32
+embeddings = np.array(embeddings).astype("float32")
+
+# Build FAISS index
+index = faiss.IndexFlatL2(embeddings.shape[1])
+index.add(embeddings)
+
+# Save index and id_map
+faiss.write_index(index, "notice_index.faiss")
+with open("id_map.json", "w", encoding="utf-8") as f:
+    json.dump(id_map, f, ensure_ascii=False, indent=2)
+
+print("✅ FAISS index built and saved.")

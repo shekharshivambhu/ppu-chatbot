@@ -1,0 +1,14 @@
+About the creator:
+
+This Patliputra University Chatbot was conceptualized and developed by Shekhar Shivam, a passionate technologist and graduate from Banaras Hindu University (BHU).
+
+Shekhar has been active in the tech field since 2020, building tools that make information more accessible and systems more efficient. This chatbot is one of his personal projects aimed at helping students and faculty get quick answers from official university notices.
+
+👨‍💻 About Shekhar Shivam
+🎓 Graduate of BHU
+
+💻 In tech since 2020
+
+🛠️ Focus: AI, automation, and solving real-world problems
+
+📫 Contact: shekharshiwam@gmail.com
